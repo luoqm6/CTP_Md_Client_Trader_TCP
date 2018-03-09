@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/UDPC.dir/main.cpp.o  -o ../../bin/UDPC  -L/home/luoqingming/coding/testUDPC/lib -lthostmduserapi -lthosttraderapi ../../lib/libIni.so -Wl,-rpath,/home/luoqingming/coding/testUDPC/lib 
