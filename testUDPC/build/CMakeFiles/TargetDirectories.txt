@@ -1,0 +1,6 @@
+/home/luoqingming/coding/testUDPC/build/CMakeFiles/edit_cache.dir
+/home/luoqingming/coding/testUDPC/build/CMakeFiles/rebuild_cache.dir
+/home/luoqingming/coding/testUDPC/build/src/CMakeFiles/rebuild_cache.dir
+/home/luoqingming/coding/testUDPC/build/src/CMakeFiles/UDPC.dir
+/home/luoqingming/coding/testUDPC/build/src/CMakeFiles/edit_cache.dir
+/home/luoqingming/coding/testUDPC/build/src/CMakeFiles/Ini.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/UDPS.dir/main.cpp.o  -o ../../bin/UDPS  -L/home/luoqingming/coding/testUDPS/lib -lthostmduserapi -lthosttraderapi ../../lib/libCTraderSpi.so ../../lib/libIni.so -Wl,-rpath,/home/luoqingming/coding/testUDPS/lib 

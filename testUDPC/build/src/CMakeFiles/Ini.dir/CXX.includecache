@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/Ini.h
+map
+-
+string
+-
+string.h
+-
+stdlib.h
+-
+stdio.h
+-
+
+/home/luoqingming/coding/testUDPC/src/Ini.cpp
+Ini.h
+/home/luoqingming/coding/testUDPC/src/Ini.h
+

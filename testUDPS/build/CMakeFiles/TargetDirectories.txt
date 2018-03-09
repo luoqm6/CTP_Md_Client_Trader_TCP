@@ -1,0 +1,7 @@
+/home/luoqingming/coding/testUDPS/build/CMakeFiles/edit_cache.dir
+/home/luoqingming/coding/testUDPS/build/CMakeFiles/rebuild_cache.dir
+/home/luoqingming/coding/testUDPS/build/src/CMakeFiles/edit_cache.dir
+/home/luoqingming/coding/testUDPS/build/src/CMakeFiles/CTraderSpi.dir
+/home/luoqingming/coding/testUDPS/build/src/CMakeFiles/Ini.dir
+/home/luoqingming/coding/testUDPS/build/src/CMakeFiles/UDPS.dir
+/home/luoqingming/coding/testUDPS/build/src/CMakeFiles/rebuild_cache.dir

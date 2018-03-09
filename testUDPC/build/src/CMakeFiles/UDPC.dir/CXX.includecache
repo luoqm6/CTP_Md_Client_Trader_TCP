@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/luoqingming/coding/testUDPC/src/main.cpp
+stdio.h
+-
+unistd.h
+-
+stdlib.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+string.h
+-
+
