@@ -12,18 +12,28 @@ using namespace std;
 #define MAX_BUF_SIZE 1024  
 #define PORT 1235
 
+//functions used
+bool sendFile();
+bool socketConnect();
+
+// sokect para
+int sockfd = -1, addrlen, result;  
+char buffer[MAX_BUF_SIZE];  
+struct sockaddr_in addr;
+
+//get parameters
+char ch;
+char* filePath;
+char* cPort;
+char* cnetAddr;
+
+FILE *fp;
+
+int fileTrans=0;
+
 int main(int argc,char* argv[])   
 {  
-	// sokect para
-	int sockfd = -1, addrlen, result;  
-	char buffer[MAX_BUF_SIZE];  
-	struct sockaddr_in addr;
 
-	//get parameters
-	char ch;
-	char* filePath;
-	char* cPort;
-	char* cnetAddr;
 
 	while((ch = getopt(argc, argv, "f:p:i:h"))!= -1){
 		switch(ch){
@@ -61,11 +71,26 @@ int main(int argc,char* argv[])
 		}
 	}
 
+	socketConnect();
+
+	sendFile();
+
+    //printf("waiting for rsp\n");
+    //n=recv(sockfd,buffer,MAX_BUF_SIZE,0);
+   	result =recv(sockfd,buffer,MAX_BUF_SIZE,0);
+   	printf("receive msg:--%s\n",buffer );
+	close(sockfd);  
+	exit(0);  
+	return 0;  
+}  
+
+bool socketConnect()
+{
 	// prepare sokect
 	sockfd = socket(PF_INET, SOCK_STREAM, 0);  
 	if (sockfd < 0)
 	{  
-	  printf( "socket falied\n");  
+	  printf( "socket falied\n");
 	  exit(EXIT_FAILURE);  
 	}  
 	addrlen = sizeof(struct sockaddr_in);  
@@ -78,18 +103,19 @@ int main(int argc,char* argv[])
 	addr.sin_addr.s_addr = inet_addr(cnetAddr);
 
 	result = connect(sockfd,(struct sockaddr*) &addr,addrlen);
+
 	if(result == -1)
 	{
 		cout<<"client connect error\n";
+		return 0;
 	}
 
 	printf("socket success\n");
+	return 1;
+}
 
-	FILE *fp;
-
-	int fileTrans=0;
-
-
+bool sendFile()
+{
 	bzero(buffer, MAX_BUF_SIZE);
 	
 	// add 
@@ -119,11 +145,4 @@ int main(int argc,char* argv[])
         //memset(buffer,0,sizeof(buffer));  
     }
     fclose(fp);
-    //printf("waiting for rsp\n");
-    //n=recv(sockfd,buffer,MAX_BUF_SIZE,0);
-   	result =recv(sockfd,buffer,MAX_BUF_SIZE,0);
-   	printf("receive msg:--%s\n",buffer );
-	close(sockfd);  
-	exit(0);  
-	return 0;  
-}  
+}
