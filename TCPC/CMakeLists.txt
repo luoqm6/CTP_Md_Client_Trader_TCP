@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.5)
-project (UDPS)
+project (TCPC)
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(SOURCE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/src)
@@ -11,7 +11,7 @@ MESSAGE(STATUS "This is SOURCE dir " ${SOURCE_OUTPUT_PATH})
 MESSAGE(STATUS "This is LIBRARY dir " ${LIBRARY_OUTPUT_PATH})
 
 # include h files
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++11 -g)
 include_directories(inc)
 add_subdirectory(src)
 
