@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/Md.dir/main.cpp.o  -o ../../bin/Md  -L/home/luoqingming/coding/TCP/TCPMd/lib -lthostmduserapi ../../lib/libCMdSpi.so ../../lib/libIni.so -Wl,-rpath,/home/luoqingming/coding/TCP/TCPMd/lib 
