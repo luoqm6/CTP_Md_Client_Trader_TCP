@@ -33,10 +33,11 @@ char* cPort;
 int server_sockfd,client_sockfd, server_len, client_len;  
 struct sockaddr_in server_addr;
 struct sockaddr_in client_addr;
-char buffer[MAX_BUF_SIZE];
-FILE *fp;
 
+// the path of the received file 
+char recPath[100];
 
+bool receiveFile();
 bool socketBind();
 bool socketAccept();
   
@@ -101,46 +102,46 @@ int main(int argc,char* argv[])
 
     	socketAccept();
 
-    	//receiveFile();
 
-    	char recPath[100];
 
-    	bzero(buffer, MAX_BUF_SIZE); 
+		// bzero(buffer, MAX_BUF_SIZE); 
 
-		socklen_t st = (socklen_t) server_len;// add 
-		int writelength=0;
-        memset(recPath,'\0',sizeof(recPath));
+		// socklen_t st = (socklen_t) server_len;// add 
+		// int writeLength=0;
+		// memset(recPath,'\0',sizeof(recPath));
 
-        st = recv(client_sockfd,recPath,MAX_BUF_SIZE,0);
-        printf("filePath :*%s*\n",recPath);
+		// st = recv(client_sockfd,recPath,MAX_BUF_SIZE,0);
+		// printf("filePath :*%s*\n",recPath);
 
-        if(st<0)
-        {
-            printf("recv error!\n");
-        }
-        fp = fopen(recPath,"w");
-        if(fp!=NULL)
-        {
-            st =recv(client_sockfd,buffer,MAX_BUF_SIZE,0);
-            if(st<0)
-            {
-                printf("recv error!\n");
-                break;
-            }
-            cout<<"writing"<<endl;
-            writelength = fwrite(buffer,sizeof(char),st,fp);
+		// if(st<0)
+		// {
+		//     printf("recv error!\n");
+		// }
+		// fp = fopen(recPath,"w");
+		// if(fp!=NULL)
+		// {
+		//     st =recv(client_sockfd,buffer,MAX_BUF_SIZE,0);
+		//     if(st<0)
+		//     {
+		//         printf("recv error!\n");
+		//         break;
+		//     }
+		//     cout<<"writing"<<endl;
+		//     writeLength = fwrite(buffer,sizeof(char),st,fp);
 
-            if(writelength <st)
-            {
-                printf("write error!\n");
-                break;
-            }
-            bzero(buffer,MAX_BUF_SIZE); 
-            //memset(buffer,0,sizeof(buffer));
+		//     if(writeLength <st)
+		//     {
+		//         printf("write error!\n");
+		//         break;
+		//     }
+		//     bzero(buffer,MAX_BUF_SIZE); 
+		//     //memset(buffer,0,sizeof(buffer));
 
-            printf("recv finished!\n");
-            fclose(fp);
-        }
+		//     printf("recv finished!\n");
+		//     fclose(fp);
+		// }
+
+		receiveFile();
 
 		// sent order
 		pTradeUserSpi->ReqOrderInsertBy(pTradeUserSpi->ReadOrderFieldIni(recPath));
@@ -210,7 +211,45 @@ bool socketAccept()
 
 }
 
-char* receiveFile()
+bool receiveFile()
 {
+	char buffer[MAX_BUF_SIZE];
+	FILE *fp;
 
+	bzero(buffer, MAX_BUF_SIZE); 
+
+	socklen_t st;// add 
+	int writeLength=0;
+	memset(recPath,'\0',sizeof(recPath));
+
+	st = recv(client_sockfd,recPath,MAX_BUF_SIZE,0);
+	printf("filePath :*%s*\n",recPath);
+
+	if(st<0)
+	{
+	    printf("recv error!\n");
+	}
+	fp = fopen(recPath,"w");
+	if(fp!=NULL)
+	{
+	    st =recv(client_sockfd,buffer,MAX_BUF_SIZE,0);
+	    if(st<0)
+	    {
+	        printf("recv error!\n");
+	        return 0;
+	    }
+	    cout<<"writing"<<endl;
+	    writeLength = fwrite(buffer,sizeof(char),st,fp);
+
+	    if(writeLength <st)
+	    {
+	        printf("write error!\n");
+	        return 0;
+	    }
+	    bzero(buffer,MAX_BUF_SIZE); 
+	    //memset(buffer,0,sizeof(buffer));
+
+	    printf("recv finished!\n");
+	    fclose(fp);
+	}
 }
