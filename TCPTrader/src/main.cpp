@@ -92,6 +92,7 @@ int main(int argc,char* argv[])
     pTradeUserSpi->InitApi();
 
 
+
     // waiting for confirm
     while(!pTradeUserSpi->isConfirm){}
 
@@ -99,6 +100,47 @@ int main(int argc,char* argv[])
     while(pTradeUserSpi->isConfirm){
 
     	socketAccept();
+
+    	//receiveFile();
+
+    	char recPath[100];
+
+    	bzero(buffer, MAX_BUF_SIZE); 
+
+		socklen_t st = (socklen_t) server_len;// add 
+		int writelength=0;
+        memset(recPath,'\0',sizeof(recPath));
+
+        st = recv(client_sockfd,recPath,MAX_BUF_SIZE,0);
+        printf("filePath :*%s*\n",recPath);
+
+        if(st<0)
+        {
+            printf("recv error!\n");
+        }
+        fp = fopen(recPath,"w");
+        if(fp!=NULL)
+        {
+            st =recv(client_sockfd,buffer,MAX_BUF_SIZE,0);
+            if(st<0)
+            {
+                printf("recv error!\n");
+                break;
+            }
+            cout<<"writing"<<endl;
+            writelength = fwrite(buffer,sizeof(char),st,fp);
+
+            if(writelength <st)
+            {
+                printf("write error!\n");
+                break;
+            }
+            bzero(buffer,MAX_BUF_SIZE); 
+            //memset(buffer,0,sizeof(buffer));
+
+            printf("recv finished!\n");
+            fclose(fp);
+        }
 
 		// sent order
 		pTradeUserSpi->ReqOrderInsertBy(pTradeUserSpi->ReadOrderFieldIni(recPath));
@@ -168,44 +210,7 @@ bool socketAccept()
 
 }
 
-bool receiveFile()
+char* receiveFile()
 {
-	    char recPath[100];
 
-    	bzero(buffer, MAX_BUF_SIZE); 
-
-		socklen_t st = (socklen_t) server_len;// add 
-		int writelength=0;
-        memset(recPath,'\0',sizeof(recPath));
-
-        st = recv(client_sockfd,recPath,MAX_BUF_SIZE,0);
-        printf("filePath :*%s*\n",recPath);
-
-        if(st<0)
-        {
-            printf("recv error!\n");
-        }
-        fp = fopen(recPath,"w");
-        if(fp!=NULL)
-        {
-            st =recv(client_sockfd,buffer,MAX_BUF_SIZE,0);
-            if(st<0)
-            {
-                printf("recv error!\n");
-                break;
-            }
-            cout<<"writing"<<endl;
-            writelength = fwrite(buffer,sizeof(char),st,fp);
-
-            if(writelength <st)
-            {
-                printf("write error!\n");
-                break;
-            }
-            bzero(buffer,MAX_BUF_SIZE); 
-            //memset(buffer,0,sizeof(buffer));
-
-            printf("recv finished!\n");
-            fclose(fp);
-        }
 }

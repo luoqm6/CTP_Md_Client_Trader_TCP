@@ -8,39 +8,6 @@
 #include "Ini.h"
 using namespace std;
 
-// // USER_API parameter
-// extern CThostFtdcTraderApi* pTradeUserApi;
-
-// // configure parameter
-// extern char gTradeFrontAddr[];               //front address
-// extern TThostFtdcBrokerIDType gBrokerID;				    //broker id
-// extern TThostFtdcInvestorIDType gInvestorID;				//investor id
-// extern TThostFtdcPasswordType gInvestorPassword;			//investor password
-
-// // configure used in orderinserting
-// TThostFtdcInstrumentIDType gTraderInstrumentID;		//instrument id
-// TThostFtdcPriceType gLimitPrice; //limit price
-// TThostFtdcPriceType gStopPrice; //stop price
-// int gTradeType;// trade request type;
-// // int gVolume; //volume
-// // TThostFtdcDirectionType gTradeDirection;//Trading direction
-
-// // state flag
-// extern bool isFrontConnected;
-// extern bool isConfirm;
-
-// // request id
-// extern int iRequestID;
-
-// // session parameters 
-// TThostFtdcFrontIDType frontID; 		//front id
-// TThostFtdcSessionIDType	sessionID;		//session id
-// TThostFtdcOrderRefType	gOrderRef;		//order reference
-// TThostFtdcOrderRefType	exeOrderRef;	//execute order reference 
-// TThostFtdcOrderRefType	forquoteRef;	//for quote reference
-// TThostFtdcOrderRefType	quoteRef;		//quote reference
-
-// 
 bool IsFlowControl(int iResult)
 {
 	return ((iResult == -2) || (iResult == -3));
@@ -520,7 +487,9 @@ CTraderSpi::CTraderSpi(char* filePath)
 	ini.openFile(filePath,"r");
 
 	gTradeFrontAddr = new char [50];
-	strcpy(gTradeFrontAddr,"tcp://180.168.146.187:10000"); // 10000 10030
+
+	char* tradeFrontAddr = ini.getStr("Addr","TradeFrontAddr");
+	sprintf(gTradeFrontAddr,"%s",tradeFrontAddr); // 10000 10030
 
 	char* brokerId = ini.getStr("Broker","ID");
 	sprintf(gBrokerID,"%s",brokerId);
