@@ -58,7 +58,7 @@ int main(int argc,char* argv[])
 				printf("Usage: ./ -opt1 para1 -opt2 para2 ...\n");
 				printf("-p: port\n");
 				printf("-f: login config filePath\n");
-				// printf("-n: Sum of instrument\n");
+				printf("-i: ip address\n");
 				printf("-h: Help to list the options\n");
 				exit(0);
 				break;

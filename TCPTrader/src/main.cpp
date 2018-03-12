@@ -52,8 +52,6 @@ int main(int argc,char* argv[])
 		exit(0);
 	}
 
-
-
 	while((ch = getopt(argc, argv, "f:p:h"))!= -1){
 		switch(ch){
 
@@ -101,8 +99,6 @@ int main(int argc,char* argv[])
     while(pTradeUserSpi->isConfirm){
 
     	socketAccept();
-
-
 
 		// sent order
 		pTradeUserSpi->ReqOrderInsertBy(pTradeUserSpi->ReadOrderFieldIni(recPath));
